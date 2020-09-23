@@ -30,16 +30,6 @@ public class GeneratingPuzzle {
 				n = (n % 9) + 1;
 		}
 
-//		   for(int z=0;z<9;z++) {
-//			   for(int y=0;y<9;y++) {
-//				   System.out.print(puzzle[z][y]+"\t");
-//				   if(y==8) {
-//					   System.out.print("\n");
-//				   }
-//			   }
-//		   }
-//		   
-
 	}
 
 	public static void random_gen(int check) {
