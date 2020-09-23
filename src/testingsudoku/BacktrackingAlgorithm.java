@@ -1,5 +1,6 @@
 package testingsudoku;
 
+import java.io.IOException;
 import java.util.stream.IntStream;
 
 public class BacktrackingAlgorithm {
@@ -10,21 +11,12 @@ public class BacktrackingAlgorithm {
 	    private static final int NO_VALUE = 0;
 	    private static final int MIN_VALUE = 1;
 	    private static final int MAX_VALUE = 9;
+	    private static int board[][] = new int[9][9];
 
-	    private static int[][] board = {
-	      {0, 0, 1, 4, 7, 8, 0, 0, 9},
-	      {0, 0, 0, 0, 0, 0, 0, 6, 3},
-	      {0, 0, 0, 0, 0, 0, 4, 0, 0},
-	      {7, 8, 0, 0, 5, 9, 0, 0, 0},
-	      {0, 0, 0, 0, 8, 0, 3, 0, 0},
-	      {0, 1, 3, 0, 0, 0, 0, 0, 0},
-	      {0, 0, 0, 0, 0, 3, 2, 0, 7},
-	      {5, 4, 0, 0, 0, 0, 0, 0, 0},
-	      {0, 9, 0, 1, 0, 0, 0, 0, 0}
-	    };
-
-	    public static void main(String[] args) {
+	    public static void main(String[] args) throws IOException {
 	        BacktrackingAlgorithm solver = new BacktrackingAlgorithm();
+	        GeneratingPuzzle generator = new GeneratingPuzzle();
+	        board=generator.finalGeneration();
 	        solver.solve(board);
 	        solver.printBoard();
 	    }
