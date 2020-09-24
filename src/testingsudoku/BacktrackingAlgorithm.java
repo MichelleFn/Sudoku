@@ -2,6 +2,8 @@ package testingsudoku;
 
 import java.io.IOException;
 import java.util.stream.IntStream;
+import GUI.SodukuFrame;
+import javax.swing.JFrame;
 
 public class BacktrackingAlgorithm {
 	  private static final int BOARD_SIZE = 9;
@@ -14,6 +16,9 @@ public class BacktrackingAlgorithm {
 	    private static int board[][] = new int[9][9];
 
 	    public static void main(String[] args) throws IOException {
+                JFrame sudoku = new JFrame();
+                SodukuFrame sd = new SodukuFrame();
+                sd.setVisible(true);
 	        BacktrackingAlgorithm solver = new BacktrackingAlgorithm();
 	        GeneratingPuzzle generator = new GeneratingPuzzle();
 	        board=generator.finalGeneration();
