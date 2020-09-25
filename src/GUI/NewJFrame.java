@@ -8,37 +8,50 @@ package GUI;
 import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+import testingsudoku.BacktrackingAlgorithm;
 
 /**
  *
  * @author myrto
  */
 public class NewJFrame extends javax.swing.JFrame {
-    	private JTextField textField[][] = new JTextField[9][9];
-  private static int[][] sudoku;
+
+    private JTextField textField[][] = new JTextField[9][9];
+//        private static int board[][];
+
+    private static int[][] sudoku;
+    private static int[][] board;
+
     /**
      * Creates new form NewJFrame
      */
-    
+
     public NewJFrame() {
         initComponents();
         JFrame frame = new JFrame();
-         frame.setSize(500,500);
+        frame.setSize(500, 500);
         sudoku = new int[9][9];
-       
+
         frame.setVisible(true);
-        panel2.setSize(500,500);
-        panel2.setLayout(new GridLayout(9,9));
-        for (int i =0;i<9;i++)
-			for (int j=0;j<9;j++){
-				textField[i][j] = new JTextField(1);
-				textField[i][j].setText(""+sudoku[i][j]);
-				if (sudoku[i][j]!=0)
-					textField[i][j].setEditable(false);
-				panel2.add(textField[i][j]);
-                           
-			}
-        
+        panel2.setSize(500, 500);
+        panel2.setLayout(new GridLayout(9, 9));
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                textField[i][j] = new JTextField(1);
+                textField[i][j].setText("" + sudoku[i][j]);
+                if (sudoku[i][j] != 0) {
+                    textField[i][j].setEditable(false);
+                }
+                panel2.add(textField[i][j]);
+
+            }
+        }
+
+    }
+    public int[][] returnBoard(){
+    BacktrackingAlgorithm ba= new BacktrackingAlgorithm();
+    board=ba.getBoard();
+    return board;
     }
 
     /**
@@ -50,12 +63,18 @@ public class NewJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        Solve1 = new javax.swing.JButton();
         panel2 = new java.awt.Panel();
+        ShowPuzzle2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("jButton1");
+        Solve1.setText("Solve");
+        Solve1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Solve1MouseClicked(evt);
+            }
+        });
 
         panel2.setBackground(new java.awt.Color(0, 163, 230));
         panel2.setEnabled(false);
@@ -65,12 +84,19 @@ public class NewJFrame extends javax.swing.JFrame {
         panel2.setLayout(panel2Layout);
         panel2Layout.setHorizontalGroup(
             panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 390, Short.MAX_VALUE)
+            .addGap(0, 504, Short.MAX_VALUE)
         );
         panel2Layout.setVerticalGroup(
             panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 268, Short.MAX_VALUE)
+            .addGap(0, 346, Short.MAX_VALUE)
         );
+
+        ShowPuzzle2.setText("Show Puzzle");
+        ShowPuzzle2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                ShowPuzzle2MousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -79,25 +105,59 @@ public class NewJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(54, 54, 54)
                 .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(98, 98, 98))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(Solve1)
+                        .addGap(97, 97, 97))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(ShowPuzzle2)
+                        .addGap(71, 71, 71))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(jButton1))
+                        .addGap(36, 36, 36)
+                        .addComponent(ShowPuzzle2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Solve1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(72, 72, 72)
+                        .addGap(47, 47, 47)
                         .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void Solve1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Solve1MouseClicked
+           
+    }//GEN-LAST:event_Solve1MouseClicked
+
+    private void ShowPuzzle2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ShowPuzzle2MousePressed
+       
+        board=returnBoard();
+     
+        //JFrame frame = new JFrame();
+        //frame.setSize(500, 500);
+        //sudoku = new int[9][9];
+
+        //frame.setVisible(true);
+        panel2.setSize(500, 500);
+        panel2.setLayout(new GridLayout(9, 9));
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                textField[i][j] = new JTextField(1);
+                textField[i][j].setText("" + board[i][j]);
+                if (board[i][j] != 0) {
+                    textField[i][j].setEditable(false);
+                }
+                panel2.add(textField[i][j]);
+            }
+        }
+    }//GEN-LAST:event_ShowPuzzle2MousePressed
 
     /**
      * @param args the command line arguments
@@ -135,7 +195,8 @@ public class NewJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton ShowPuzzle2;
+    private javax.swing.JButton Solve1;
     private java.awt.Panel panel2;
     // End of variables declaration//GEN-END:variables
 }
