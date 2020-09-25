@@ -5,9 +5,13 @@
  */
 package GUI;
 
+import java.awt.Button;
+import java.awt.Color;
 import java.awt.GridLayout;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import java.awt.GridLayout;
 
 /**
  *
@@ -16,13 +20,42 @@ import javax.swing.JTextField;
 public class SodukuFrame extends javax.swing.JFrame {
         
    
+	private JTextField textField[][] = new JTextField[9][9];
+
+        private static int[][] sudoku;
+      
 
     /**
      * Creates new form SodukuFrame
      */
     public SodukuFrame() {
         initComponents();
-        jPanel3.setLayout(new GridLayout(9,9));
+	JFrame frame = new JFrame("Sudoku");
+        frame.setSize(500,500);
+        sudoku = new int[9][9];
+
+
+//        jPanel3.setLayout(new GridLayout(9,9));
+//        for (int y = 0; y < 9; y++){
+//			for (int x = 0; x < 9; x++){
+//				textField[x][y] = new JTextField();
+//				textField[x][y].setForeground(Color.RED);
+//				gridPanel.add(textField[x][y]);
+//			}
+//		}
+        JPanel board = new JPanel();
+        board.setLayout(new GridLayout (9,9));
+		for (int i =0;i<9;i++)
+			for (int j=0;j<9;j++){
+				textField[i][j] = new JTextField(1);
+				textField[i][j].setText(""+sudoku[i][j]);
+				if (sudoku[i][j]!=0)
+					textField[i][j].setEditable(false);
+				board.add(textField[i][j]);
+                           
+			}
+        frame.getContentPane().add(board);
+        frame.setVisible(true);
     }
 
     /**
@@ -34,13 +67,8 @@ public class SodukuFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel3 = new javax.swing.JPanel();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.GridLayout());
-
-        jPanel3.setLayout(new java.awt.GridLayout());
-        getContentPane().add(jPanel3);
+        getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -81,6 +109,5 @@ public class SodukuFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
 }
