@@ -2,7 +2,7 @@ package testingsudoku;
 
 import java.io.IOException;
 import java.util.stream.IntStream;
-import GUI.SodukuFrame;
+import GUI.NewJFrame;
 import javax.swing.JFrame;
 
 public class BacktrackingAlgorithm {
@@ -17,7 +17,7 @@ public class BacktrackingAlgorithm {
 
 	    public static void main(String[] args) throws IOException {
                 JFrame sudoku = new JFrame();
-                SodukuFrame sd = new SodukuFrame();
+                NewJFrame sd = new NewJFrame();
                 sd.setVisible(true);
 	        BacktrackingAlgorithm solver = new BacktrackingAlgorithm();
 	        GeneratingPuzzle generator = new GeneratingPuzzle();
