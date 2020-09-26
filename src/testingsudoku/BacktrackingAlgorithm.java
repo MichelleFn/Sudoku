@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.stream.IntStream;
 import GUI.NewJFrame;
 import java.awt.Event;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 public class BacktrackingAlgorithm {
@@ -31,17 +33,18 @@ public class BacktrackingAlgorithm {
         JFrame sudoku = new JFrame();
 
         BacktrackingAlgorithm solver = new BacktrackingAlgorithm();
-        GeneratingPuzzle generator = new GeneratingPuzzle();
-        board = generator.finalGeneration();
+        //GeneratingPuzzle generator = new GeneratingPuzzle();
+        //board = generator.finalGeneration();
         NewJFrame sd = new NewJFrame();
+        //sd.returnBoard();
         sd.setVisible(true);
-        sd.returnBoard();
-        solver.solve(board);
-
+        
+        //
+        //sd.returnBoard();
         solver.printBoard();
     }
 
-    private void printBoard() {
+    public void printBoard() {
         for (int row = BOARD_START_INDEX; row < BOARD_SIZE; row++) {
             for (int column = BOARD_START_INDEX; column < BOARD_SIZE; column++) {
                 System.out.print(board[row][column] + " ");
@@ -50,7 +53,8 @@ public class BacktrackingAlgorithm {
         }
     }
 
-    private boolean solve(int[][] board) {
+    public boolean solve(int[][] board) {
+    
         for (int row = BOARD_START_INDEX; row < BOARD_SIZE; row++) {
             for (int column = BOARD_START_INDEX; column < BOARD_SIZE; column++) {
                 if (board[row][column] == NO_VALUE) {
@@ -65,7 +69,9 @@ public class BacktrackingAlgorithm {
                 }
             }
         }
-        return true;
+        
+       
+       return true;
     }
 
     private boolean isValid(int[][] board, int row, int column) {

@@ -6,9 +6,13 @@
 package GUI;
 
 import java.awt.GridLayout;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import testingsudoku.BacktrackingAlgorithm;
+import testingsudoku.GeneratingPuzzle;
 
 /**
  *
@@ -25,14 +29,11 @@ public class NewJFrame extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame
      */
-
     public NewJFrame() {
         initComponents();
-        JFrame frame = new JFrame();
-        frame.setSize(500, 500);
+
         sudoku = new int[9][9];
 
-        frame.setVisible(true);
         panel2.setSize(500, 500);
         panel2.setLayout(new GridLayout(9, 9));
         for (int i = 0; i < 9; i++) {
@@ -48,11 +49,12 @@ public class NewJFrame extends javax.swing.JFrame {
         }
 
     }
-    public int[][] returnBoard(){
-    BacktrackingAlgorithm ba= new BacktrackingAlgorithm();
-    board=ba.getBoard();
-    return board;
-    }
+
+//    public int[][] returnBoard() {
+////        BacktrackingAlgorithm ba = new BacktrackingAlgorithm();
+////        board = ba.getBoard();
+////        return board;
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -133,30 +135,44 @@ public class NewJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Solve1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Solve1MouseClicked
-           
-    }//GEN-LAST:event_Solve1MouseClicked
-
-    private void ShowPuzzle2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ShowPuzzle2MousePressed
-       
-        board=returnBoard();
-     
-        //JFrame frame = new JFrame();
-        //frame.setSize(500, 500);
-        //sudoku = new int[9][9];
-
-        //frame.setVisible(true);
-        panel2.setSize(500, 500);
-        panel2.setLayout(new GridLayout(9, 9));
+        // board = returnBoard();BacktrackingAlgorithm ba = new BacktrackingAlgorithm();
+        try {
+            BacktrackingAlgorithm ba = new BacktrackingAlgorithm();
+            ba.solve(board);
+        } catch (Exception e) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, e);
+        }
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                textField[i][j] = new JTextField(1);
+
                 textField[i][j].setText("" + board[i][j]);
                 if (board[i][j] != 0) {
                     textField[i][j].setEditable(false);
                 }
-                panel2.add(textField[i][j]);
+
             }
         }
+    }//GEN-LAST:event_Solve1MouseClicked
+
+    private void ShowPuzzle2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ShowPuzzle2MousePressed
+        // board = returnBoard();
+        GeneratingPuzzle generator = new GeneratingPuzzle();
+        try {
+            board = generator.finalGeneration();
+        } catch (IOException ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+
+                textField[i][j].setText("" + board[i][j]);
+                if (board[i][j] != 0) {
+                    textField[i][j].setEditable(false);
+                }
+
+            }
+        }
+
     }//GEN-LAST:event_ShowPuzzle2MousePressed
 
     /**
@@ -189,6 +205,9 @@ public class NewJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                JFrame frame = new JFrame();
+                frame.setSize(500, 500);
+                frame.setVisible(true);
                 new NewJFrame().setVisible(true);
             }
         });
