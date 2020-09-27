@@ -25,6 +25,7 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private static int[][] sudoku;
     private static int[][] board;
+   
 
     /**
      * Creates new form NewJFrame
@@ -34,14 +35,14 @@ public class NewJFrame extends javax.swing.JFrame {
 
         sudoku = new int[9][9];
 
-        panel2.setSize(500, 500);
+        panel2.setSize(1000, 1000);
         panel2.setLayout(new GridLayout(9, 9));
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 textField[i][j] = new JTextField(1);
                 textField[i][j].setText("" + sudoku[i][j]);
-                if (sudoku[i][j] != 0) {
-                    textField[i][j].setEditable(false);
+                if (sudoku[i][j] == 0) {
+                    textField[i][j].setEditable(true);
                 }
                 panel2.add(textField[i][j]);
 
@@ -68,6 +69,7 @@ public class NewJFrame extends javax.swing.JFrame {
         Solve1 = new javax.swing.JButton();
         panel2 = new java.awt.Panel();
         ShowPuzzle2 = new javax.swing.JButton();
+        jPlay = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -100,6 +102,13 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
 
+        jPlay.setText("Play");
+        jPlay.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPlayMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -107,27 +116,29 @@ public class NewJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(54, 54, 54)
                 .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(Solve1)
-                        .addGap(97, 97, 97))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(ShowPuzzle2)
-                        .addGap(71, 71, 71))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addComponent(ShowPuzzle2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPlay)
+                            .addComponent(Solve1))))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
                         .addComponent(ShowPuzzle2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPlay)
+                        .addGap(10, 10, 10)
                         .addComponent(Solve1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(74, Short.MAX_VALUE))
         );
 
@@ -152,6 +163,7 @@ public class NewJFrame extends javax.swing.JFrame {
 
             }
         }
+    
     }//GEN-LAST:event_Solve1MouseClicked
 
     private void ShowPuzzle2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ShowPuzzle2MousePressed
@@ -174,6 +186,18 @@ public class NewJFrame extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_ShowPuzzle2MousePressed
+
+    private void jPlayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPlayMouseClicked
+    
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (board[i][j] == 0) {
+                    textField[i][j].setEditable(true);
+                
+                }
+            }
+       }
+    }//GEN-LAST:event_jPlayMouseClicked
 
     /**
      * @param args the command line arguments
@@ -216,6 +240,7 @@ public class NewJFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ShowPuzzle2;
     private javax.swing.JButton Solve1;
+    private javax.swing.JButton jPlay;
     private java.awt.Panel panel2;
     // End of variables declaration//GEN-END:variables
 }
