@@ -18,31 +18,29 @@ import testingsudoku.GeneratingPuzzle;
  *
  * @author myrto
  */
-public class NewJFrame extends javax.swing.JFrame {
+public class SudokuFrame extends javax.swing.JFrame {
 
     private JTextField textField[][] = new JTextField[9][9];
-//        private static int board[][];
 
     private static int[][] sudoku;
     private static int[][] board;
-   
 
     /**
      * Creates new form NewJFrame
      */
-    public NewJFrame() {
+    public SudokuFrame() {
         initComponents();
 
         sudoku = new int[9][9];
 
-        panel2.setSize(1000, 1000);
+        panel2.setSize(500, 500);
         panel2.setLayout(new GridLayout(9, 9));
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 textField[i][j] = new JTextField(1);
                 textField[i][j].setText("" + sudoku[i][j]);
-                if (sudoku[i][j] == 0) {
-                    textField[i][j].setEditable(true);
+                if (sudoku[i][j] != 0) {
+                    textField[i][j].setEditable(false);
                 }
                 panel2.add(textField[i][j]);
 
@@ -50,12 +48,6 @@ public class NewJFrame extends javax.swing.JFrame {
         }
 
     }
-
-//    public int[][] returnBoard() {
-////        BacktrackingAlgorithm ba = new BacktrackingAlgorithm();
-////        board = ba.getBoard();
-////        return board;
-//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -69,10 +61,11 @@ public class NewJFrame extends javax.swing.JFrame {
         Solve1 = new javax.swing.JButton();
         panel2 = new java.awt.Panel();
         ShowPuzzle2 = new javax.swing.JButton();
-        jPlay = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 51, 51));
 
+        Solve1.setBackground(new java.awt.Color(0, 102, 153));
         Solve1.setText("Solve");
         Solve1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -80,31 +73,26 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
 
-        panel2.setBackground(new java.awt.Color(0, 163, 230));
+        panel2.setBackground(new java.awt.Color(0, 102, 153));
+        panel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         panel2.setForeground(new java.awt.Color(174, 55, 65));
 
         javax.swing.GroupLayout panel2Layout = new javax.swing.GroupLayout(panel2);
         panel2.setLayout(panel2Layout);
         panel2Layout.setHorizontalGroup(
             panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 504, Short.MAX_VALUE)
+            .addGap(0, 246, Short.MAX_VALUE)
         );
         panel2Layout.setVerticalGroup(
             panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 346, Short.MAX_VALUE)
+            .addGap(0, 327, Short.MAX_VALUE)
         );
 
+        ShowPuzzle2.setBackground(new java.awt.Color(0, 102, 153));
         ShowPuzzle2.setText("Show Puzzle");
         ShowPuzzle2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 ShowPuzzle2MousePressed(evt);
-            }
-        });
-
-        jPlay.setText("Play");
-        jPlay.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPlayMouseClicked(evt);
             }
         });
 
@@ -117,28 +105,26 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(ShowPuzzle2))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(70, 70, 70)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPlay)
-                            .addComponent(Solve1))))
-                .addContainerGap(62, Short.MAX_VALUE))
+                        .addComponent(Solve1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(ShowPuzzle2)))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(169, 169, 169)
                         .addComponent(ShowPuzzle2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPlay)
-                        .addGap(10, 10, 10)
+                        .addGap(32, 32, 32)
                         .addComponent(Solve1))
-                    .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(74, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pack();
@@ -150,7 +136,7 @@ public class NewJFrame extends javax.swing.JFrame {
             BacktrackingAlgorithm ba = new BacktrackingAlgorithm();
             ba.solve(board);
         } catch (Exception e) {
-            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(SudokuFrame.class.getName()).log(Level.SEVERE, null, e);
         }
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -162,7 +148,6 @@ public class NewJFrame extends javax.swing.JFrame {
 
             }
         }
-    
     }//GEN-LAST:event_Solve1MouseClicked
 
     private void ShowPuzzle2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ShowPuzzle2MousePressed
@@ -171,7 +156,7 @@ public class NewJFrame extends javax.swing.JFrame {
         try {
             board = generator.finalGeneration();
         } catch (IOException ex) {
-            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SudokuFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -185,19 +170,6 @@ public class NewJFrame extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_ShowPuzzle2MousePressed
-
-    private void jPlayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPlayMouseClicked
-    
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                
-                if (board[i][j] == 0) {
-                    textField[i][j].setEditable(true);
-                
-                }
-            }
-       }
-    }//GEN-LAST:event_jPlayMouseClicked
 
     /**
      * @param args the command line arguments
@@ -216,20 +188,21 @@ public class NewJFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SudokuFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SudokuFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SudokuFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SudokuFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NewJFrame().setVisible(true);
+                new SudokuFrame().setVisible(true);
             }
         });
     }
@@ -237,7 +210,6 @@ public class NewJFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ShowPuzzle2;
     private javax.swing.JButton Solve1;
-    private javax.swing.JButton jPlay;
     private java.awt.Panel panel2;
     // End of variables declaration//GEN-END:variables
 }
