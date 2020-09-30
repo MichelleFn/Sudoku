@@ -10,7 +10,7 @@ When the wizard for project import appears select the third option *Import as ge
 When the project is succesfully cloned and appears in your workspace right click the project and run.
 
 Netbeans:
-Go to Team > Git > Clone.
+Go to *Team* > *Git* > *Clone*.
 Copy paste the url, add the nessesary credentials and follow the steps.
 When the project appears in the workspace click run.
 
