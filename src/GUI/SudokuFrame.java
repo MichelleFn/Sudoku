@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -32,7 +33,7 @@ public class SudokuFrame extends javax.swing.JFrame {
         initComponents();
 
         sudoku = new int[9][9];
-
+        setSize(600,500);
         panel2.setSize(1000, 1000);
         panel2.setLayout(new GridLayout(9, 9));
         for (int i = 0; i < 9; i++) {
@@ -66,6 +67,8 @@ public class SudokuFrame extends javax.swing.JFrame {
         ShowPuzzle2 = new javax.swing.JButton();
         jPlay = new javax.swing.JButton();
 
+        GenerateLabel.setBackground(new java.awt.Color(0, 51, 51));
+
         OkButton.setText("OK");
         OkButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -73,7 +76,7 @@ public class SudokuFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("You should generate puzzle first");
+        jLabel1.setText("You have to generate a puzzle first.");
 
         javax.swing.GroupLayout GenerateLabelLayout = new javax.swing.GroupLayout(GenerateLabel.getContentPane());
         GenerateLabel.getContentPane().setLayout(GenerateLabelLayout);
@@ -82,21 +85,21 @@ public class SudokuFrame extends javax.swing.JFrame {
             .addGroup(GenerateLabelLayout.createSequentialGroup()
                 .addGroup(GenerateLabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(GenerateLabelLayout.createSequentialGroup()
-                        .addGap(119, 119, 119)
+                        .addGap(98, 98, 98)
                         .addComponent(jLabel1))
                     .addGroup(GenerateLabelLayout.createSequentialGroup()
-                        .addGap(192, 192, 192)
+                        .addGap(182, 182, 182)
                         .addComponent(OkButton)))
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addContainerGap(123, Short.MAX_VALUE))
         );
         GenerateLabelLayout.setVerticalGroup(
             GenerateLabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GenerateLabelLayout.createSequentialGroup()
-                .addContainerGap(84, Short.MAX_VALUE)
+                .addContainerGap(147, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(64, 64, 64)
+                .addGap(18, 18, 18)
                 .addComponent(OkButton)
-                .addGap(106, 106, 106))
+                .addGap(89, 89, 89))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -108,7 +111,7 @@ public class SudokuFrame extends javax.swing.JFrame {
             }
         });
 
-        panel2.setBackground(new java.awt.Color(0, 163, 230));
+        panel2.setBackground(new java.awt.Color(0, 102, 102));
         panel2.setForeground(new java.awt.Color(174, 55, 65));
 
         javax.swing.GroupLayout panel2Layout = new javax.swing.GroupLayout(panel2);
@@ -152,7 +155,7 @@ public class SudokuFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPlay)
                             .addComponent(Solve1))))
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,7 +176,7 @@ public class SudokuFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Solve1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Solve1MouseClicked
-
+        try{
         try {
             BacktrackingAlgorithm ba = new BacktrackingAlgorithm();
             ba.solve(board);
@@ -189,6 +192,10 @@ public class SudokuFrame extends javax.swing.JFrame {
                 }
 
             }
+        }
+        }catch(Exception e){
+            GenerateLabel.setSize(400,200);
+            GenerateLabel.setVisible(true);
         }
 
     }//GEN-LAST:event_Solve1MouseClicked
@@ -227,8 +234,9 @@ public class SudokuFrame extends javax.swing.JFrame {
                 }
             }
         } catch (Exception e) {
-            GenerateLabel.setSize(500,500);
+            GenerateLabel.setSize(400,200);
             GenerateLabel.setVisible(true);
+            GenerateLabel.getContentPane().setBackground(Color.lightGray);
         }
     }//GEN-LAST:event_jPlayMouseClicked
 
