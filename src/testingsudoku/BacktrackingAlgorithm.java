@@ -12,11 +12,11 @@ public class BacktrackingAlgorithm {
 
     private static final int BOARD_SIZE = 9;
     private static final int SUBSECTION_SIZE = 3;
-    private static final int BOARD_START_INDEX = 0;
+    private static final int BOARD_START = 0;
 
-    private static final int NO_VALUE = 0;
-    private static final int MIN_VALUE = 1;
-    private static final int MAX_VALUE = 9;
+    private static final int ZERO = 0;
+    private static final int MIN = 1;
+    private static final int MAX = 9;
 
     private static int board[][] = new int[9][9];
 
@@ -29,12 +29,13 @@ public class BacktrackingAlgorithm {
     }
 
     public static void main(String[] args) throws IOException {
-        printBoard();
+        SudokuFrame sudoku = new SudokuFrame();
+        sudoku.setVisible(true);
     }
 
     public static void printBoard() {
-        for (int row = BOARD_START_INDEX; row < BOARD_SIZE; row++) {
-            for (int column = BOARD_START_INDEX; column < BOARD_SIZE; column++) {
+        for (int row = BOARD_START; row < BOARD_SIZE; row++) {
+            for (int column = BOARD_START; column < BOARD_SIZE; column++) {
                 System.out.print(board[row][column] + " ");
             }
             System.out.println();
@@ -43,15 +44,15 @@ public class BacktrackingAlgorithm {
 
     public boolean solve(int[][] board) {
 
-        for (int row = BOARD_START_INDEX; row < BOARD_SIZE; row++) {
-            for (int column = BOARD_START_INDEX; column < BOARD_SIZE; column++) {
-                if (board[row][column] == NO_VALUE) {
-                    for (int k = MIN_VALUE; k <= MAX_VALUE; k++) {
+        for (int row = BOARD_START; row < BOARD_SIZE; row++) {
+            for (int column = BOARD_START; column < BOARD_SIZE; column++) {
+                if (board[row][column] == ZERO) {
+                    for (int k = MIN; k <= MAX; k++) {
                         board[row][column] = k;
                         if (isValid(board, row, column) && solve(board)) {
                             return true;
                         }
-                        board[row][column] = NO_VALUE;
+                        board[row][column] = ZERO;
                     }
                     return false;
                 }
@@ -87,18 +88,26 @@ public class BacktrackingAlgorithm {
 
     private boolean columnCheck(int[][] board, int column) {
         boolean[] constraint = new boolean[BOARD_SIZE];
-        return IntStream.range(BOARD_START_INDEX, BOARD_SIZE)
-                .allMatch(row -> boxCheck(board, row, constraint, column));
+        for (int range = 0; range < 9; range++) {
+            if(!(boxCheck(board ,range,constraint,column))){
+                return false;
+            }
+        }
+        return true;
     }
-
+    
     private boolean rowCheck(int[][] board, int row) {
         boolean[] constraint = new boolean[BOARD_SIZE];
-        return IntStream.range(BOARD_START_INDEX, BOARD_SIZE)
-                .allMatch(column -> boxCheck(board, row, constraint, column));
+        for (int range = 0; range < 9; range++) {
+            if(!(boxCheck(board ,row,constraint,range))){
+                return false;
+            }
+        }
+        return true;
     }
 
-    private boolean boxCheck(int[][] board, int row, boolean[] constraint, int column) {
-        if (board[row][column] != NO_VALUE) {
+    private static boolean boxCheck(int[][] board, int row, boolean[] constraint, int column) {
+        if (board[row][column] != 0) {
             if (!constraint[board[row][column] - 1]) {
                 constraint[board[row][column] - 1] = true;
             } else {
