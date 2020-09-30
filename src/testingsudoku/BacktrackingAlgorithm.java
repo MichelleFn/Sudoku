@@ -29,7 +29,6 @@ public class BacktrackingAlgorithm {
     }
 
     public static void main(String[] args) throws IOException {
-
         printBoard();
     }
 
@@ -63,12 +62,12 @@ public class BacktrackingAlgorithm {
     }
 
     private boolean isValid(int[][] board, int row, int column) {
-        return rowConstraint(board, row)
-                && columnConstraint(board, column)
-                && subsectionConstraint(board, row, column);
+        return rowCheck(board, row)
+                && columnCheck(board, column)
+                && subsectionCheck(board, row, column);
     }
 
-    private boolean subsectionConstraint(int[][] board, int row, int column) {
+    private boolean subsectionCheck(int[][] board, int row, int column) {
         boolean[] constraint = new boolean[BOARD_SIZE];
         int subsectionRowStart = (row / SUBSECTION_SIZE) * SUBSECTION_SIZE;
         int subsectionRowEnd = subsectionRowStart + SUBSECTION_SIZE;
@@ -78,7 +77,7 @@ public class BacktrackingAlgorithm {
 
         for (int r = subsectionRowStart; r < subsectionRowEnd; r++) {
             for (int c = subsectionColumnStart; c < subsectionColumnEnd; c++) {
-                if (!checkConstraint(board, r, constraint, c)) {
+                if (!boxCheck(board, r, constraint, c)) {
                     return false;
                 }
             }
@@ -86,19 +85,19 @@ public class BacktrackingAlgorithm {
         return true;
     }
 
-    private boolean columnConstraint(int[][] board, int column) {
+    private boolean columnCheck(int[][] board, int column) {
         boolean[] constraint = new boolean[BOARD_SIZE];
         return IntStream.range(BOARD_START_INDEX, BOARD_SIZE)
-                .allMatch(row -> checkConstraint(board, row, constraint, column));
+                .allMatch(row -> boxCheck(board, row, constraint, column));
     }
 
-    private boolean rowConstraint(int[][] board, int row) {
+    private boolean rowCheck(int[][] board, int row) {
         boolean[] constraint = new boolean[BOARD_SIZE];
         return IntStream.range(BOARD_START_INDEX, BOARD_SIZE)
-                .allMatch(column -> checkConstraint(board, row, constraint, column));
+                .allMatch(column -> boxCheck(board, row, constraint, column));
     }
 
-    private boolean checkConstraint(int[][] board, int row, boolean[] constraint, int column) {
+    private boolean boxCheck(int[][] board, int row, boolean[] constraint, int column) {
         if (board[row][column] != NO_VALUE) {
             if (!constraint[board[row][column] - 1]) {
                 constraint[board[row][column] - 1] = true;
@@ -108,6 +107,5 @@ public class BacktrackingAlgorithm {
         }
         return true;
     }
-    
-    
+
 }
