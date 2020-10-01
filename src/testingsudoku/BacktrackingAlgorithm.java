@@ -10,14 +10,6 @@ import javax.swing.JFrame;
 
 public class BacktrackingAlgorithm {
 
-    private static final int BOARD_SIZE = 9;
-    private static final int SUBSECTION_SIZE = 3;
-    private static final int BOARD_START = 0;
-
-    private static final int ZERO = 0;
-    private static final int MIN = 1;
-    private static final int MAX = 9;
-
     private static int board[][] = new int[9][9];
 
     public static void setBoard(int[][] board) {
@@ -34,8 +26,8 @@ public class BacktrackingAlgorithm {
     }
 
     public static void printBoard() {
-        for (int row = BOARD_START; row < BOARD_SIZE; row++) {
-            for (int column = BOARD_START; column < BOARD_SIZE; column++) {
+        for (int row = 0; row < 9; row++) {
+            for (int column = 0; column < 9; column++) {
                 System.out.print(board[row][column] + " ");
             }
             System.out.println();
@@ -44,15 +36,15 @@ public class BacktrackingAlgorithm {
 
     public boolean solve(int[][] board) {
 
-        for (int row = BOARD_START; row < BOARD_SIZE; row++) {
-            for (int column = BOARD_START; column < BOARD_SIZE; column++) {
-                if (board[row][column] == ZERO) {
-                    for (int k = MIN; k <= MAX; k++) {
+        for (int row = 0; row < 9; row++) {
+            for (int column = 0; column < 9; column++) {
+                if (board[row][column] == 0) {
+                    for (int k = 1; k <= 9; k++) {
                         board[row][column] = k;
                         if (isValid(board, row, column) && solve(board)) {
                             return true;
                         }
-                        board[row][column] = ZERO;
+                        board[row][column] = 0;
                     }
                     return false;
                 }
@@ -61,7 +53,7 @@ public class BacktrackingAlgorithm {
 
         return true;
     }
-
+ 
     private boolean isValid(int[][] board, int row, int column) {
         return rowCheck(board, row)
                 && columnCheck(board, column)
@@ -69,12 +61,12 @@ public class BacktrackingAlgorithm {
     }
 
     private boolean subsectionCheck(int[][] board, int row, int column) {
-        boolean[] constraint = new boolean[BOARD_SIZE];
-        int subsectionRowStart = (row / SUBSECTION_SIZE) * SUBSECTION_SIZE;
-        int subsectionRowEnd = subsectionRowStart + SUBSECTION_SIZE;
+        boolean[] constraint = new boolean[9];
+        int subsectionRowStart = (row / 3) * 3;
+        int subsectionRowEnd = subsectionRowStart + 3;
 
-        int subsectionColumnStart = (column / SUBSECTION_SIZE) * SUBSECTION_SIZE;
-        int subsectionColumnEnd = subsectionColumnStart + SUBSECTION_SIZE;
+        int subsectionColumnStart = (column / 3) * 3;
+        int subsectionColumnEnd = subsectionColumnStart + 3;
 
         for (int r = subsectionRowStart; r < subsectionRowEnd; r++) {
             for (int c = subsectionColumnStart; c < subsectionColumnEnd; c++) {
@@ -87,7 +79,7 @@ public class BacktrackingAlgorithm {
     }
 
     private boolean columnCheck(int[][] board, int column) {
-        boolean[] constraint = new boolean[BOARD_SIZE];
+        boolean[] constraint = new boolean[9];
         for (int range = 0; range < 9; range++) {
             if(!(boxCheck(board ,range,constraint,column))){
                 return false;
@@ -97,7 +89,7 @@ public class BacktrackingAlgorithm {
     }
     
     private boolean rowCheck(int[][] board, int row) {
-        boolean[] constraint = new boolean[BOARD_SIZE];
+        boolean[] constraint = new boolean[9];
         for (int range = 0; range < 9; range++) {
             if(!(boxCheck(board ,row,constraint,range))){
                 return false;
