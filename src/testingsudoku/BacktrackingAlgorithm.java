@@ -1,12 +1,7 @@
 package testingsudoku;
 
 import java.io.IOException;
-import java.util.stream.IntStream;
 import GUI.SudokuFrame;
-import java.awt.Event;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFrame;
 
 public class BacktrackingAlgorithm {
 

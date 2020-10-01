@@ -10,7 +10,6 @@ import java.awt.GridLayout;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JTextField;
 import testingsudoku.BacktrackingAlgorithm;
 import testingsudoku.GeneratingPuzzle;
